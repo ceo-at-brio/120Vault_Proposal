@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>120Vault™ — Phase 1 Proposal | ZenoVerse × SoftwareBrio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #102a2e;
+      --ink-soft: #3d5a61;
+      --muted: #6b858c;
+      --line: #d7e6e8;
+      --bg: #f3f8f8;
+      --card: #ffffff;
+      --brand: #0d7c7a;
+      --brand-deep: #0a4f55;
+      --brand-soft: #e4f4f3;
+      --teal: #14a3a0;
+      --teal-soft: #dff5f4;
+      --warn: #b8860b;
+      --warn-soft: #fdf6e3;
+      --danger: #a33b3b;
+      --danger-soft: #fceeee;
+      --radius: 14px;
+      --shadow: 0 1px 2px rgba(16,42,46,.05), 0 8px 24px rgba(16,42,46,.06);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "DM Sans", sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.55;
+      font-size: 15.5px;
+    }
+    a { color: var(--brand); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { width: min(1080px, calc(100% - 32px)); margin: 0 auto; }
+    section { padding: 56px 0; border-top: 1px solid var(--line); }
+    h1, h2, h3, .display { font-family: "Fraunces", Georgia, serif; letter-spacing: -.02em; }
+    h2 { font-size: clamp(26px, 3vw, 34px); margin: 0 0 12px; font-weight: 600; color: var(--brand-deep); }
+    h3 { font-size: 18px; margin: 0 0 8px; font-weight: 600; }
+    h4 { font-size: 14.5px; margin: 0 0 8px; font-weight: 650; }
+    .eyebrow {
+      display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--brand); margin-bottom: 10px;
+    }
+    .lede { font-size: 16.5px; color: var(--ink-soft); max-width: 72ch; margin: 0 0 18px; }
+
+    /* Topbar */
+    .topbar {
+      position: sticky; top: 0; z-index: 40;
+      background: rgba(243,248,248,.92); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar .inner {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; padding: 12px 0; flex-wrap: wrap;
+    }
+    .logo { font-weight: 700; color: var(--brand-deep); font-size: 15px; text-decoration: none; }
+    .logo span { color: var(--brand); }
+    .topbar nav { display: flex; gap: 6px; flex-wrap: wrap; }
+    .topbar nav a {
+      font-size: 13px; color: var(--ink-soft); text-decoration: none;
+      padding: 6px 10px; border-radius: 999px;
+    }
+    .topbar nav a:hover { background: var(--brand-soft); color: var(--brand); text-decoration: none; }
+
+    /* Hero */
+    .hero {
+      padding: 48px 0 56px;
+      background:
+        radial-gradient(900px 420px at 90% -10%, rgba(20,163,160,.22), transparent 60%),
+        radial-gradient(700px 380px at 0% 20%, rgba(10,79,85,.12), transparent 55%),
+        linear-gradient(180deg, #e8f5f4 0%, var(--bg) 100%);
+      border-bottom: 1px solid var(--line);
+    }
+    .pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,.7); border: 1px solid var(--line);
+      border-radius: 999px; padding: 6px 12px; font-size: 12.5px; color: var(--ink-soft);
+      margin-bottom: 16px;
+    }
+    .pill b { color: var(--brand-deep); }
+    .hero h1 {
+      font-size: clamp(34px, 5vw, 52px); line-height: 1.08; margin: 0 0 14px;
+      color: var(--brand-deep); max-width: 16ch;
+    }
+    .hero .sub { font-size: 17px; color: var(--ink-soft); max-width: 58ch; margin: 0 0 28px; }
+    .hero-meta {
+      display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px;
+    }
+    .hero-meta .stat {
+      background: rgba(255,255,255,.88); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow);
+    }
+    .hero-meta .stat b {
+      display: block; font-family: "Fraunces", serif; font-size: 24px;
+      color: var(--brand); letter-spacing: -.03em;
+    }
+    .hero-meta .stat span { display: block; font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+
+    /* Cards / grids */
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; }
+    .card {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow);
+    }
+    .card p { margin: 0; color: var(--ink-soft); font-size: 14.5px; }
+    .speed {
+      border-left: 4px solid var(--brand);
+      background: linear-gradient(180deg, var(--teal-soft) 0%, #fff 60%);
+    }
+    .speed.s2 { border-left-color: var(--brand-deep); background: linear-gradient(180deg, #e8eef0 0%, #fff 60%); }
+    .chip-wrap { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .chip {
+      background: var(--brand-soft); color: var(--brand-deep); border: 1px solid #c5e4e2;
+      border-radius: 999px; padding: 7px 12px; font-size: 13px; font-weight: 600;
+    }
+    .chip.out { background: #f3f4f6; color: var(--muted); border-color: var(--line); font-weight: 500; }
+    .scope-list {
+      margin: 0; padding-left: 18px; color: var(--ink-soft); font-size: 13.5px;
+    }
+    .scope-list li { margin-bottom: 8px; }
+    .scope-list b { color: var(--ink); }
+
+    /* Journey stepper */
+    .journey-intro { margin-bottom: 22px; }
+    .steps {
+      display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin: 18px 0 8px;
+      scrollbar-width: thin;
+    }
+    .step-btn {
+      flex: 0 0 auto; border: 1px solid var(--line); background: #fff;
+      border-radius: 12px; padding: 10px 12px; min-width: 92px; cursor: pointer;
+      text-align: left; font: inherit; color: var(--ink-soft); transition: .15s ease;
+    }
+    .step-btn:hover { border-color: #9fd0cd; }
+    .step-btn.active {
+      background: var(--brand-deep); color: #fff; border-color: var(--brand-deep);
+    }
+    .step-btn .n {
+      display: block; font-size: 11px; font-weight: 700; opacity: .7; margin-bottom: 2px;
+    }
+    .step-btn .t { display: block; font-size: 13px; font-weight: 650; }
+    .journey-panel { display: none; margin-top: 8px; }
+    .journey-panel.active { display: block; }
+    .journey-layout {
+      display: grid; grid-template-columns: 1.05fr .95fr; gap: 22px; align-items: start;
+    }
+    .journey-copy .tag {
+      display: inline-block; font-size: 12px; font-weight: 700; color: var(--brand);
+      background: var(--brand-soft); border-radius: 999px; padding: 4px 10px; margin-bottom: 10px;
+    }
+
+    /* Device mockups */
+    .device {
+      background: #0f2428; border-radius: 28px; padding: 12px;
+      box-shadow: 0 18px 40px rgba(16,42,46,.22); max-width: 360px; margin: 0 auto;
+    }
+    .device.tablet { max-width: 420px; border-radius: 22px; }
+    .device-screen {
+      background: #f7fbfb; border-radius: 20px; overflow: hidden; min-height: 460px;
+      display: flex; flex-direction: column;
+    }
+    .device.tablet .device-screen { border-radius: 14px; min-height: 420px; }
+    .status {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 14px 6px; font-size: 11px; color: var(--muted); font-weight: 600;
+    }
+    .appbar {
+      padding: 8px 14px 12px; border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, #fff, #f4fafa);
+    }
+    .appbar .brand-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    }
+    .appbar .app-name { font-weight: 700; color: var(--brand-deep); font-size: 14px; }
+    .appbar .meta { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+    .badge {
+      font-size: 11px; font-weight: 700; border-radius: 999px; padding: 4px 8px;
+    }
+    .badge.online { background: var(--teal-soft); color: var(--brand); }
+    .badge.offline { background: var(--warn-soft); color: #8a6a08; }
+    .badge.blocked { background: var(--danger-soft); color: var(--danger); }
+    .badge.ok { background: var(--brand-soft); color: var(--brand-deep); }
+    .body { padding: 14px; flex: 1; }
+    .field {
+      background: #fff; border: 1px solid var(--line); border-radius: 10px;
+      padding: 10px 12px; margin-bottom: 10px;
+    }
+    .field label { display: block; font-size: 11px; color: var(--muted); font-weight: 650; margin-bottom: 3px; }
+    .field .val { font-size: 13.5px; color: var(--ink); font-weight: 500; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--brand); color: #fff; border: 0; border-radius: 10px;
+      padding: 10px 14px; font-weight: 650; font-size: 13px; width: 100%; cursor: default;
+    }
+    .btn.ghost {
+      background: #fff; color: var(--brand-deep); border: 1px solid var(--line);
+    }
+    .btn.row { display: flex; gap: 8px; }
+    .btn.row .btn { width: auto; flex: 1; }
+    .check {
+      display: flex; gap: 10px; align-items: flex-start; padding: 10px 0;
+      border-bottom: 1px solid var(--line); font-size: 13px;
+    }
+    .check:last-child { border-bottom: 0; }
+    .box {
+      width: 18px; height: 18px; border-radius: 5px; border: 1.5px solid #9bb8bc;
+      flex: 0 0 auto; margin-top: 1px; display: grid; place-items: center;
+      font-size: 11px; color: #fff;
+    }
+    .box.on { background: var(--brand); border-color: var(--brand); }
+    .box.off { background: #f3f4f6; }
+    .list-row {
+      display: flex; justify-content: space-between; gap: 10px; align-items: center;
+      padding: 11px 12px; background: #fff; border: 1px solid var(--line);
+      border-radius: 12px; margin-bottom: 8px;
+    }
+    .list-row b { display: block; font-size: 13.5px; }
+    .list-row span { font-size: 11.5px; color: var(--muted); }
+    .note {
+      background: var(--warn-soft); border: 1px solid #f0e0b0; border-radius: 10px;
+      padding: 10px 12px; font-size: 12.5px; color: #7a5d10; margin: 10px 0;
+    }
+    .alert {
+      background: var(--danger-soft); border: 1px solid #efc4c4; border-radius: 10px;
+      padding: 12px; font-size: 13px; color: var(--danger); margin-top: 8px;
+    }
+    .success {
+      background: var(--teal-soft); border: 1px solid #b7e4e1; border-radius: 10px;
+      padding: 12px; font-size: 13px; color: var(--brand-deep);
+    }
+    .progress {
+      display: flex; gap: 4px; margin: 8px 0 14px;
+    }
+    .progress i {
+      height: 4px; flex: 1; border-radius: 99px; background: #d5e6e5;
+    }
+    .progress i.on { background: var(--brand); }
+
+    /* Timeline */
+    .timeline { display: grid; gap: 12px; margin-top: 18px; }
+    .t-item {
+      display: grid; grid-template-columns: 110px 1fr; gap: 14px;
+      background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 16px 18px; box-shadow: var(--shadow);
+    }
+    .t-item .when { font-size: 12.5px; font-weight: 700; color: var(--brand); }
+    .t-item .pay { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .rom-table, .opex-table {
+      width: 100%; border-collapse: collapse; margin-top: 14px;
+      background: var(--card); border-radius: var(--radius); overflow: hidden;
+      box-shadow: var(--shadow); border: 1px solid var(--line);
+    }
+    .rom-table th, .rom-table td, .opex-table th, .opex-table td {
+      text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--line);
+      font-size: 13.5px; vertical-align: top;
+    }
+    .rom-table th, .opex-table th { background: var(--brand-soft); color: var(--brand-deep); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+    .rom-table tr:last-child td, .opex-table tr:last-child td { border-bottom: 0; font-weight: 650; }
+
+    .callout {
+      background: linear-gradient(135deg, var(--brand-deep), var(--brand));
+      color: #fff; border-radius: 18px; padding: 28px; margin-top: 8px;
+    }
+    .callout h3 { color: #fff; margin-bottom: 8px; font-family: Fraunces, serif; font-size: 24px; }
+    .callout p { margin: 0 0 16px; opacity: .92; }
+    .callout ol { margin: 0; padding-left: 18px; }
+    .callout li { margin-bottom: 6px; }
+
+    footer {
+      padding: 28px 0 48px; color: var(--muted); font-size: 13px; text-align: center;
+    }
+
+    @media (max-width: 860px) {
+      .hero-meta, .grid-3, .grid-2, .journey-layout { grid-template-columns: 1fr; }
+      .t-item { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap inner">
+      <a class="logo" href="#top">120Vault<span>™</span> Proposal</a>
+      <nav>
+        <a href="#vision">Vision</a>
+        <a href="#scope">Scope</a>
+        <a href="#journeys">Journeys</a>
+        <a href="#investment">Investment</a>
+        <a href="#next">Next steps</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <div class="hero">
+      <div class="wrap">
+        <div class="pill"><b>SB-ZV-2026-P1-FINAL</b> · Confidential · Prepared for ZenoVerse Wellness Group, Inc.</div>
+        <h1>120Vault™ — the operating system for MediSpotel™</h1>
+        <p class="sub">
+          Phase 1 Foundation &amp; long-term roadmap. Prepared for
+          <strong>Dr. Steph Ardrey</strong> and <strong>Pascal Sharpe</strong>
+          by Parag Goyal, SoftwareBrio — Bangalore.
+        </p>
+        <div class="hero-meta">
+          <div class="stat"><b>$38.5k</b><span>Phase 1 fixed investment</span></div>
+          <div class="stat"><b>10 wks</b><span>Nov 2026 → Jan 2027</span></div>
+          <div class="stat"><b>752 hrs</b><span>Senior engineering effort</span></div>
+          <div class="stat"><b>$153–170k</b><span>Phases 1–4 platform ROM</span></div>
+        </div>
+      </div>
+    </div>
+
+    <section id="vision">
+      <div class="wrap">
+        <div class="eyebrow">Why this</div>
+        <h2>One secure vault for every guest touchpoint</h2>
+        <p class="lede">
+          Like Marriott’s operating systems power brand licensing more than real estate,
+          120Vault™ is the IP that lets ZenoVerse license wellness protocols across
+          120BodySpa™, 420WellnessJamaica™, and studios worldwide. It sits in experiential,
+          non-invasive biohacking and mindset transformation for high-profile guests
+          (CEOs, senior litigators, family-office principals) — while staying
+          <strong>strictly non-clinical</strong>.
+        </p>
+        <div class="grid-3">
+          <div class="card">
+            <h4>Strategic partner, not a vendor</h4>
+            <p>Fractional CTO arm for Steph and Pascal: relieve operational load, ship an investor-grade asset for institutional diligence, and hand over cleanly. Pedigree across Ola, Zendrive, and Google AlloyDB.</p>
+          </div>
+          <div class="card">
+            <h4>Non-clinical by design</h4>
+            <p>Lifestyle measures and vetted protocols (coMra, InnergizeX) — no diagnose/treat features in these phases. Avoids diagnostic liability while delivering institutional-grade tracking.</p>
+          </div>
+          <div class="card">
+            <h4>Built for Jamaica realities</h4>
+            <p>Offline-first staff tools for the mountain estate, mobile-first guest flows, JDPA / GDPR / CCPA-aware consent and audit.</p>
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-top:18px">
+          <div class="card speed">
+            <div class="eyebrow">Speed 1 · November</div>
+            <h3>Fast-Track Preview MVP</h3>
+            <p>Digital intake, guest profile, basic consent vault, session logger — live for VIP Jamaica Preview, funded via preview revenues.</p>
+          </div>
+          <div class="card speed s2">
+            <div class="eyebrow">Speed 2 · Dec → Jan</div>
+            <h3>Hardened Foundation</h3>
+            <p>Offline sync, field-level encryption, RBAC, GoHighLevel bridge, immutable audit — timed with mid-December capital close.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="scope">
+      <div class="wrap">
+        <div class="eyebrow">Phase 1 scope</div>
+        <h2>Eight modules. One foundation.</h2>
+        <p class="lede">Everything below ships in the $38,500 Phase 1 build. Household / Chief of Staff is an MVP; full 120ClubVIP™ Passport expands in Phase 3.</p>
+        <div class="chip-wrap">
+          <span class="chip">M1 Identity &amp; MFA</span>
+          <span class="chip">M2 Guest profile &amp; VIP prefs</span>
+          <span class="chip">M3 Consent &amp; encrypted vault</span>
+          <span class="chip">M4 Engagement log</span>
+          <span class="chip">M5 Offline staff PWA</span>
+          <span class="chip">M6 RBAC &amp; delegations MVP</span>
+          <span class="chip">M7 Audit &amp; compliance</span>
+          <span class="chip">M8 GoHighLevel bridge</span>
+          <span class="chip out">Later: measures dashboard</span>
+          <span class="chip out">Later: Club Passport / mobile</span>
+          <span class="chip out">Later: multi-brand &amp; wearables</span>
+        </div>
+
+        <div class="grid-2" style="margin-top:18px">
+          <div class="card">
+            <h4>What each module delivers</h4>
+            <ul class="scope-list">
+              <li><b>M1 Identity</b> — Staff MFA (TOTP/SMS); guest magic link + Argon2id; session auto-lock on shared devices</li>
+              <li><b>M2 Profile</b> — Digitized intake; dietary / cultural / privacy flags; emergency &amp; household metadata</li>
+              <li><b>M3 Vault</b> — Purpose-based waiver vs media consent; AES-256-GCM envelope encryption + KMS; e-sign audit</li>
+              <li><b>M4 Log</b> — coMra, InnergizeX, coaching, excursions; duration + observations + concierge flags</li>
+              <li><b>M5 Offline PWA</b> — iPad staff console; IndexedDB cache; optimistic sync with conflict rules</li>
+              <li><b>M6 RBAC</b> — Practitioners see assigned guests only; concierge blocked from wellness notes; CoS MVP toggles</li>
+              <li><b>M7 Compliance</b> — JDPA / GDPR / CCPA·CPRA / WA MHMDA; append-only audit; export &amp; erasure rights</li>
+              <li><b>M8 GHL</b> — Exchanges with GoHighLevel; does <em>not</em> replace it; payment tokens only — never raw cards</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>Explicitly out of Phase 1</h4>
+            <ul class="scope-list">
+              <li>Wellness Week 3-point measures &amp; Mind/Body/Soul dashboard → <b>Phase 2</b></li>
+              <li>Post-retreat coaching, 120ClubVIP™ Passport, member mobile, Mandarin → <b>Phase 3</b></li>
+              <li>Multi-property tenancy, wearables/IoT, executive analytics → <b>Phase 4</b></li>
+              <li>Microsoft 365 / Google Workspace calendar sync</li>
+              <li>Greenvelope RSVP</li>
+              <li>Future clinical program module (separate brief later)</li>
+            </ul>
+            <p style="margin:14px 0 0;font-size:13.5px;color:var(--ink-soft)">GHL keeps funnels, Curated Plan Assessment calls, and payment processing. 120Vault™ returns onboarding status tags <em>without</em> raw wellness data.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- JOURNEYS -->
+    <section id="journeys">
+      <div class="wrap">
+        <div class="eyebrow">Product journeys</div>
+        <h2>What using 120Vault™ feels like</h2>
+        <p class="lede">Four roles. Screen mockups for each critical path — inspired by the same walkthrough style as our product proposals.</p>
+
+        <!-- Journey A -->
+        <div class="card" style="margin-top:8px;padding:28px" data-journey="a">
+          <div class="journey-intro">
+            <div class="eyebrow">Journey A · Guest</div>
+            <h3>VIP onboarding &amp; consent</h3>
+            <p class="lede" style="margin:0">GHL confirms a booking. The guest opens a magic link and completes intake before arrival — discreet, branded, non-clinical.</p>
+          </div>
+          <div class="steps" role="tablist">
+            <button class="step-btn active" data-step="a0"><span class="n">01</span><span class="t">Magic link</span></button>
+            <button class="step-btn" data-step="a1"><span class="n">02</span><span class="t">Intake</span></button>
+            <button class="step-btn" data-step="a2"><span class="n">03</span><span class="t">Discretion</span></button>
+            <button class="step-btn" data-step="a3"><span class="n">04</span><span class="t">Consent</span></button>
+            <button class="step-btn" data-step="a4"><span class="n">05</span><span class="t">Vault</span></button>
+            <button class="step-btn" data-step="a5"><span class="n">06</span><span class="t">Done</span></button>
+          </div>
+
+          <div class="journey-panel active" id="a0">
+            <div class="journey-layout">
+              <div class="journey-copy">
+                <span class="tag">Step 1 · Welcome</span>
+                <h4>Frictionless VIP access</h4>
+                <p>After GHL booking confirmation, the guest receives a secure magic link. No password friction for principals who barely want another login.</p>
+              </div>
+              <div class="device">
+                <div class="device-screen">
+                  <div class="status"><span>9:14</span><span>●●● ⌁</span></div>
+                  <div class="appbar">
+                    <div class="app-name">120Vault™</div>
+                    <div class="meta">Jamaica Preview · Private access</div>
+                  </div>
+                  <div class="body">
+                    <p style="margin:0 0 8px;font-family:Fraunces,serif;font-size:22px;color:var(--brand-deep)">Welcome, Alexandra</p>
+                    <p style="margin:0 0 16px;font-size:13px;color:var(--ink-soft)">Your Curated Plan Assessment is confirmed. Complete your discreet pre-arrival profile.</p>
+                    <div class="field"><label>Email on file</label><div class="val">a••••@familyoffice.com</div></div>
+                    <div class="btn">Continue with secure link</div>
+                    <p style="margin:12px 0 0;font-size:11px;color:var(--muted);text-align:center">Aqua &amp; teal · ZenoVerse branded</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="journey-panel" id="a1">
+            <div class="journey-layout">
+              <div class="journey-copy">
+                <span class="tag">Step 2 · Digital intake</span>
+                <h4>Dr. Steph’s questionnaire, digitized</h4>
+                <p>Mindset, sleep, gut, energy — captured as lifestyle measures, never framed as diagnosis.</p>
+              </div>
+              <div class="device">
+                <div class="device-screen">
+                  <div class="status"><span>9:16</span><span>●●● ⌁</span></div>
+                  <div class="appbar">
+                    <div class="brand-row"><div class="app-name">Pre-arrival intake</div><span class="badge ok">2 / 5</span></div>
+                    <div class="progress"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div>
+                  </div>
+                  <div class="body">
+                    <div class="field"><label>Sleep quality (past 2 weeks)</label><div class="val">Restless · 5–6 hrs</div></div>
+                    <div class="field"><label>Mindset focus this retreat</label><div class="val">Stress recovery · clarity</div></div>
+                    <div class="field"><label>Gut / energy notes</label><div class="val">Prefer plant-forward evenings</div></div>
+                    <div class="btn">Save &amp; continue</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="journey-panel" id="a2">
+            <div class="journey-layout">
+              <div class="journey-copy">
+                <span class="tag">Step 3 · Discretion flags</span>
+                <h4>Hospitality that stays invisible</h4>
+                <p>Dietary, cultural, and privacy requests route to kitchen and practitioners — without gossip in a shared inbox.</p>
+              </div>
+              <div class="device">
+                <div class="device-screen">
+                  <div class="status"><span>9:18</span><span>●●● ⌁</span></div>
+                  <div class="appbar"><div class="app-name">Preferences &amp; discretion</div><div class="meta">Visible only to authorized staff</div></div>
+                  <div class="body">
+                    <div class="check"><div class="box on">✓</div><div><b>Halal kitchen</b><br><span style="color:var(--muted);font-size:12px">No alcohol in suite</span></div></div>
+                    <div class="check"><div class="box on">✓</div><div><b>Female-only bodywork</b><br><span style="color:var(--muted);font-size:12px">Gender-separation request</span></div></div>
+                    <div class="check"><div class="box on">✓</div><div><b>No photography on grounds</b><br><span style="color:var(--muted);font-size:12px">Utmost discretion protocol</span></div></div>
+                    <div class="check"><div class="box off"></div><div><b>Private dining</b></div></div>
+                    <div class="btn" style="margin-top:12px">Continue</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="journey-panel" id="a3">
+            <div class="journey-layout">
+              <div class="journey-copy">
+                <span class="tag">Step 4 · Purpose-based consent</span>
+                <h4>Operational waiver ≠ media consent</h4>
+                <p>Guests can join every protocol while declining testimonials, photos, or marketing — decoupled by design.</p>
+              </div>
+              <div class="device">
+                <div class="device-screen">
+                  <div class="status"><span>9:19</span><span>●●● ⌁</span></div>
+                  <div class="appbar"><div class="app-name">Consents</div></div>
+                  <div class="body">
+                    <div class="field">
+                      <label>Required</label>
+                      <div class="val" style="font-size:12.5px">I understand 120Vault™ tracks lifestyle wellness and does <b>not</b> diagnose or treat medical conditions.</div>
+                    </div>
+                    <div class="check"><div class="box on">✓</div><div>I agree to the operational wellness waiver</div></div>
+                    <div class="check"><div class="box off"></div><div>Optional: photo / video / testimonial use</div></div>
+                    <div class="note">Media consent is separate. Declining it never blocks treatments.</div>
+                    <div class="btn">Sign &amp; continue</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="journey-panel" id="a4">
+            <div class="journey-layout">
+              <div class="journey-copy">
+                <span class="tag">Step 5 · Encrypted vault</span>
+                <h4>Optional labs, sealed at rest</h4>
+                <p>Uploads use field-level envelope encryption (AES-256-GCM + KMS) before commit — not a shared drive folder.</p>
+              </div>
+              <div class="device">
+                <div class="device-screen">
+                  <div class="status"><span>9:21</span><span>●●● ⌁</span></div>
+                  <div class="appbar"><div class="app-name">Document vault</div><div class="meta">Encrypted · optional</div></div>
+                  <div class="body">
+                    <div class="field" style="border-style:dashed;text-align:center;padding:22px 12px">
+                      <div class="val">Drop lab PDF or photo</div>
+                      <div style="font-size:11px;color:var(--muted);margin-top:4px">Encrypted before storage</div>
+                    </div>
+                    <div class="list-row"><div><b>physician_release.pdf</b><span>Ready to encrypt</span></div><span class="badge ok">AES-256</span></div>
+                    <div class="btn">Upload securely</div>
+                    <div class="btn ghost" style="margin-top:8px">Skip for now</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="journey-panel" id="a5">
+            <div class="journey-layout">
+              <div class="journey-copy">
+                <span class="tag">Step 6 · Complete</span>
+                <h4>Concierge notified automatically</h4>
+                <p>Onboarding status tags flow back to GoHighLevel without sending raw wellness data.</p>
+              </div>
+              <div class="device">
+                <div class="device-screen">
+                  <div class="status"><span>9:22</span><span>●●● ⌁</span></div>
+                  <div class="appbar"><div class="app-name">You’re set</div></div>
+                  <div class="body">
+                    <div class="success">
+                      <b>Onboarding complete</b><br>
+                      Concierge and assigned practitioners have been notified. Your preferences are locked to authorized roles only.
+                    </div>
+                    <div class="list-row" style="margin-top:12px"><div><b>Arrival</b><span>Suite 4 · Thu 14:00</span></div><span class="badge ok">Confirmed</span></div>
+                    <div class="btn">Open my journey</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Journey B -->
+        <div class="card" style="margin-top:22px;padding:28px" data-journey="b">
+          <div class="journey-intro">
+            <div class="eyebrow">Journey B · Household</div>
+            <h3>Chief of Staff delegation</h3>
+            <p class="lede" style="margin:0">Principals grant assistants itinerary and dietary access — while blocking private wellness documents.</p>
+          </div>
+          <div class="steps">
+            <button class="step-btn active" data-step="b0"><span class="n">01</span><span class="t">Delegate</span></button>
+            <button class="step-btn" data-step="b1"><span class="n">02</span><span class="t">Permissions</span></button>
+            <button class="step-btn" data-step="b2"><span class="n">03</span><span class="t">Invite</span></button>
+          </div>
+          <div class="journey-panel active" id="b0">
+            <div class="journey-layout">
+              <div class="journey-copy">
+                <span class="tag">Account settings</span>
+                <h4>Delegate without oversharing</h4>
+                <p>Phase 1 ships an MVP permission model. Full 120ClubVIP™ Passport expands in Phase 3.</p>
+              </div>
+              <div class="device">
+                <div class="device-screen">
+                  <div class="status"><span>11:02</span><span>●●● ⌁</span></div>
+                  <div class="appbar"><div class="app-name">Account · Delegate access</div></div>
+                  <div class="body">
+                    <div class="field"><label>Chief of Staff email</label><div class="val">ops@familyoffice.com</div></div>
+                    <div class="btn">Configure permissions</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="journey-panel" id="b1">
+            <div class="journey-layout">
+              <div class="journey-copy">
+                <span class="tag">Granular toggles</span>
+                <h4>Logistics yes. Vault no.</h4>
+                <p>Exactly the discretion high-profile households expect.</p>
+              </div>
+              <div class="device">
+                <div class="device-screen">
+                  <div class="status"><span>11:03</span><span>●●● ⌁</span></div>
+                  <div class="appbar"><div class="app-name">Permission toggles</div></div>
+                  <div class="body">
+                    <div class="check"><div class="box on">✓</div><div>Travel itinerary &amp; concierge chat</div></div>
+                    <div class="check"><div class="box on">✓</div><div>Dietary &amp; suite logistics</div></div>
+                    <div class="check"><div class="box off"></div><div><b>Sensitive wellness notes &amp; vault</b><br><span style="font-size:12px;color:var(--danger)">Blocked</span></div></div>
+                    <div class="btn" style="margin-top:12px">Send invitation</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="journey-panel" id="b2">
+            <div class="journey-layout">
+              <div class="journey-copy">
+                <span class="tag">CoS side</span>
+                <h4>Invite → MFA → coordinate</h4>
+                <p>Delegates enable MFA before acting on the principal’s behalf.</p>
+              </div>
+              <div class="device">
+                <div class="device-screen">
+                  <div class="status"><span>11:05</span><span>●●● ⌁</span></div>
+                  <div class="appbar"><div class="app-name">Delegation invite</div></div>
+                  <div class="body">
+                    <div class="success">Alexandra invited you to coordinate logistics for Jamaica Preview.</div>
+                    <div class="list-row" style="margin-top:12px"><div><b>Allowed</b><span>Itinerary · Dietary</span></div><span class="badge ok">2</span></div>
+                    <div class="list-row"><div><b>Blocked</b><span>Wellness vault</span></div><span class="badge blocked">1</span></div>
+                    <div class="btn">Enable MFA &amp; accept</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Journey C -->
+        <div class="card" style="margin-top:22px;padding:28px" data-journey="c">
+          <div class="journey-intro">
+            <div class="eyebrow">Journey C · Wellness Ambassador</div>
+            <h3>Offline mountain estate console</h3>
+            <p class="lede" style="margin:0">Cache at the lodge. Treat at the cabana. Sync when Wi‑Fi returns — built for Jamaica’s intermittent connectivity.</p>
+          </div>
+          <div class="steps">
+            <button class="step-btn active" data-step="c0"><span class="n">01</span><span class="t">Cache</span></button>
+            <button class="step-btn" data-step="c1"><span class="n">02</span><span class="t">Offline</span></button>
+            <button class="step-btn" data-step="c2"><span class="n">03</span><span class="t">Log</span></button>
+            <button class="step-btn" data-step="c3"><span class="n">04</span><span class="t">Sync</span></button>
+          </div>
+          <div class="journey-panel active" id="c0">
+            <div class="journey-layout">
+              <div class="journey-copy">
+                <span class="tag">Main lodge · Wi‑Fi</span>
+                <h4>Pull today’s assigned roster</h4>
+                <p>Practitioners only see guests assigned to them — least privilege before they even go offline.</p>
+              </div>
+              <div class="device tablet">
+                <div class="device-screen">
+                  <div class="status"><span>Staff Console · iPad</span><span class="badge online">Online</span></div>
+                  <div class="appbar"><div class="app-name">Today’s roster</div><div class="meta">Cached for offline use</div></div>
+                  <div class="body">
+                    <div class="list-row"><div><b>Alexandra M.</b><span>Suite 4 · InnergizeX 10:30</span></div><span class="badge ok">Assigned</span></div>
+                    <div class="list-row"><div><b>James R.</b><span>Suite 2 · coMra 11:30</span></div><span class="badge ok">Assigned</span></div>
+                    <div class="btn">Cache roster &amp; walk to cabana</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="journey-panel" id="c1">
+            <div class="journey-layout">
+              <div class="journey-copy">
+                <span class="tag">Remote cabana</span>
+                <h4>Connection drops — work continues</h4>
+                <p>Yellow offline indicator. Dietary limits still readable from IndexedDB.</p>
+              </div>
+              <div class="device tablet">
+                <div class="device-screen">
+                  <div class="status"><span>Staff Console · iPad</span><span class="badge offline">Offline mode</span></div>
+                  <div class="appbar"><div class="app-name">Alexandra M.</div><div class="meta">Local cache · encrypted</div></div>
+                  <div class="body">
+                    <div class="note">No cellular / Wi‑Fi. Changes will sync when you return to the lodge.</div>
+                    <div class="field"><label>Dietary / physical flags</label><div class="val">Halal · female-only bodywork · low alcohol</div></div>
+                    <div class="field"><label>Session</label><div class="val">InnergizeX Stretch · 60 min</div></div>
+                    <div class="btn">Start session log</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="journey-panel" id="c2">
+            <div class="journey-layout">
+              <div class="journey-copy">
+                <span class="tag">During session</span>
+                <h4>Log coMra / InnergizeX / coaching</h4>
+                <p>Duration + qualitative notes + concierge action flags, saved locally first.</p>
+              </div>
+              <div class="device tablet">
+                <div class="device-screen">
+                  <div class="status"><span>Staff Console · iPad</span><span class="badge offline">Offline</span></div>
+                  <div class="appbar"><div class="app-name">Session log</div></div>
+                  <div class="body">
+                    <div class="field"><label>Protocol</label><div class="val">InnergizeX · mobility</div></div>
+                    <div class="field"><label>Duration</label><div class="val">60 minutes</div></div>
+                    <div class="field"><label>Observation</label><div class="val">Requested extra electrolytes in suite</div></div>
+                    <div class="btn">Save to device</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="journey-panel" id="c3">
+            <div class="journey-layout">
+              <div class="journey-copy">
+                <span class="tag">Back at lodge</span>
+                <h4>Background sync + audit trail</h4>
+                <p>Deterministic conflict resolution on reconnect. Every write lands in the immutable audit log.</p>
+              </div>
+              <div class="device tablet">
+                <div class="device-screen">
+                  <div class="status"><span>Staff Console · iPad</span><span class="badge online">Online · syncing</span></div>
+                  <div class="appbar"><div class="app-name">Sync complete</div></div>
+                  <div class="body">
+                    <div class="success"><b>1 session uploaded</b><br>Alexandra M. · InnergizeX · audit event #A-1842</div>
+                    <div class="list-row" style="margin-top:12px"><div><b>Local queue</b><span>Empty</span></div><span class="badge ok">0 pending</span></div>
+                    <div class="btn ghost">View audit entry</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Journey D -->
+        <div class="card" style="margin-top:22px;padding:28px" data-journey="d">
+          <div class="journey-intro">
+            <div class="eyebrow">Journey D · Concierge</div>
+            <h3>Arrivals roster &amp; RBAC wall</h3>
+            <p class="lede" style="margin:0">See what hospitality needs. Never what practitioners recorded — enforced by role, not trust.</p>
+          </div>
+          <div class="steps">
+            <button class="step-btn active" data-step="d0"><span class="n">01</span><span class="t">Arrivals</span></button>
+            <button class="step-btn" data-step="d1"><span class="n">02</span><span class="t">Guest card</span></button>
+            <button class="step-btn" data-step="d2"><span class="n">03</span><span class="t">RBAC block</span></button>
+          </div>
+          <div class="journey-panel active" id="d0">
+            <div class="journey-layout">
+              <div class="journey-copy">
+                <span class="tag">Membership office</span>
+                <h4>MFA login → upcoming arrivals</h4>
+                <p>Filter by suite and arrival time. Staff MFA is mandatory.</p>
+              </div>
+              <div class="device">
+                <div class="device-screen">
+                  <div class="status"><span>Concierge</span><span class="badge ok">MFA ✓</span></div>
+                  <div class="appbar"><div class="app-name">Upcoming arrivals</div><div class="meta">Thu · Jamaica Preview</div></div>
+                  <div class="body">
+                    <div class="list-row"><div><b>Alexandra M.</b><span>Suite 4 · 14:00 · VIP</span></div><span class="badge ok">Halal</span></div>
+                    <div class="list-row"><div><b>James R.</b><span>Suite 2 · 15:30</span></div><span class="badge ok">Plant</span></div>
+                    <div class="btn">Open Alexandra</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="journey-panel" id="d1">
+            <div class="journey-layout">
+              <div class="journey-copy">
+                <span class="tag">Guest logistics card</span>
+                <h4>Kitchen &amp; transport ready</h4>
+                <p>Discretion flags and dietary needs — not wellness session notes.</p>
+              </div>
+              <div class="device">
+                <div class="device-screen">
+                  <div class="status"><span>Concierge</span><span>●●●</span></div>
+                  <div class="appbar"><div class="app-name">Alexandra M.</div><div class="meta">Suite 4</div></div>
+                  <div class="body">
+                    <div class="field"><label>Flight</label><div class="val">AA 123 · KIN 13:10</div></div>
+                    <div class="field"><label>Dietary</label><div class="val">Halal · zero alcohol</div></div>
+                    <div class="note">Utmost discretion · no photography on grounds</div>
+                    <div class="btn ghost">Coordinate kitchen &amp; transport</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="journey-panel" id="d2">
+            <div class="journey-layout">
+              <div class="journey-copy">
+                <span class="tag">Least privilege</span>
+                <h4>System blocks practitioner notes</h4>
+                <p>Concierge role cannot open wellness observations — demonstrated RBAC, not a soft hide.</p>
+              </div>
+              <div class="device">
+                <div class="device-screen">
+                  <div class="status"><span>Concierge</span><span class="badge blocked">Denied</span></div>
+                  <div class="appbar"><div class="app-name">Practitioner notes</div></div>
+                  <div class="body">
+                    <div class="alert">
+                      <b>Access blocked by RBAC</b><br>
+                      Your role can view logistics and dietary preferences only. Wellness session notes require practitioner or program-lead permission.
+                    </div>
+                    <div class="btn ghost" style="margin-top:12px">Return to guest card</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="investment">
+      <div class="wrap">
+        <div class="eyebrow">Schedule &amp; investment</div>
+        <h2>10 weeks · $38,500</h2>
+        <p class="lede">Four equal acceptance tranches of $9,625 (Net 30 after acceptance). Effort varies by sprint — invoices are acceptance-based, not hour-for-hour. M1 from preview revenue; M2 aligns with mid-December capital; M3–M4 in January. Led from Bangalore with ≥4 hours daily EST/Jamaica overlap (<strong>8:00 AM–12:00 PM EST</strong>); dedicated on-call during November Preview dates.</p>
+
+        <div class="timeline">
+          <div class="t-item">
+            <div><div class="when">W1–W3 · Nov</div><div class="pay">$9,625</div></div>
+            <div><b>Sprint 1A — Preview Pilot</b><br><span style="color:var(--ink-soft);font-size:14px">Intake, profile, consent, simple session logger — live for Jamaica Preview · 188 hrs</span></div>
+          </div>
+          <div class="t-item">
+            <div><div class="when">W4–W5 · Dec</div><div class="pay">$9,625</div></div>
+            <div><b>Sprint 1B.1 — Vault &amp; GHL</b><br><span style="color:var(--ink-soft);font-size:14px">Encrypted vault, staff MFA, GHL sync, VIP preferences · 210 hrs</span></div>
+          </div>
+          <div class="t-item">
+            <div><div class="when">W6–W7 · Dec/Jan</div><div class="pay">$9,625</div></div>
+            <div><b>Sprint 1B.2 — Offline &amp; Delegations</b><br><span style="color:var(--ink-soft);font-size:14px">Offline PWA, sync engine, engagement log, Chief of Staff MVP · 204 hrs</span></div>
+          </div>
+          <div class="t-item">
+            <div><div class="when">W8–W10 · Jan</div><div class="pay">$9,625</div></div>
+            <div><b>Sprint 1C — Hardening &amp; Handover</b><br><span style="color:var(--ink-soft);font-size:14px">RBAC, audit, rights endpoints, WCAG, security review, CTO handover · 150 hrs</span></div>
+          </div>
+        </div>
+
+        <h3 style="margin:28px 0 0">Phases 2–4 roadmap (ROM ±30%)</h3>
+        <p class="lede">Indicative for December capital planning. Locked via separate SOWs after Phase 1.</p>
+        <table class="rom-table">
+          <thead>
+            <tr><th>Phase</th><th>Window</th><th>Scope</th><th>Investment</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1 Foundation</td><td>Nov 2026 – Jan 2027</td><td>Preview MVP, Vault, Offline PWA, RBAC, Delegations MVP, GHL</td><td><b>Fixed $38,500</b></td></tr>
+            <tr><td>2 Measures</td><td>Q1 2027</td><td>3-point Wellness Week · Mind/Body/Soul · guest dashboard</td><td>$28k – $32k</td></tr>
+            <tr><td>3 Continuity</td><td>Q2 2027</td><td>Coaching · W-a-a-S/S™ · 120ClubVIP™ Passport · EN + Mandarin</td><td>$42k – $48k</td></tr>
+            <tr><td>4 Scale &amp; IoT</td><td>H2 2027</td><td>Multi-brand tenancy · wearables · anonymized analytics</td><td>$45k – $52k</td></tr>
+            <tr><td colspan="3">Platform total (Phases 1–4)</td><td>$153,500 – $170,500</td></tr>
+          </tbody>
+        </table>
+
+        <h3 style="margin:28px 0 0">Monthly OpEx (post-launch)</h3>
+        <table class="opex-table">
+          <thead><tr><th>Line</th><th>Est. / month</th></tr></thead>
+          <tbody>
+            <tr><td>Cloud (compute, DB, storage, KMS, SMS/email, monitoring)</td><td>~$410 – $640</td></tr>
+            <tr><td>SoftwareBrio maintenance SLA (optional)</td><td>$3,500</td></tr>
+            <tr><td>Total with SLA</td><td>~$3,910 – $4,140</td></tr>
+          </tbody>
+        </table>
+        <p style="color:var(--muted);font-size:13px;margin-top:10px">Outside-SLA T&amp;M $55–$95/hr. Approved travel reimbursed with final Phase 1 payment.</p>
+      </div>
+    </section>
+
+    <section id="assumptions">
+      <div class="wrap">
+        <div class="eyebrow">Dependencies</div>
+        <h2>What we need to start clean</h2>
+        <div class="grid-3">
+          <div class="card"><h4>Needed from ZenoVerse</h4><p>Intake form within 48 hours of kickoff; GHL API/webhooks by Week 2; 48-hour Sprint 1A review turnaround.</p></div>
+          <div class="card"><h4>Assumptions</h4><p>ZenoVerse owns final waiver copy; Phase 1 delegations are MVP; GHL custom fields ready by Week 2.</p></div>
+          <div class="card"><h4>Risks</h4><p>GHL/feedback delays → CSV fallback; offline conflicts → deterministic sync; scope creep → change orders; density → Two-Speed cut line.</p></div>
+        </div>
+        <div class="card" style="margin-top:16px">
+          <h4>IP, handover &amp; governance</h4>
+          <p><b>100% work-for-hire</b> — source, designs, data models, and docs belong to ZenoVerse Wellness Group, Inc. · Open TypeScript/Node delivery with Docker + CI/CD (no vendor lock-in) · Weekly syncs, documented PRs, and architecture walkthroughs with Pascal Sharpe · 120Vault™ / 120BodySpa™ / 120ClubVIP™ / W-a-a-S/S™ rendered with ™ · Confidential under ZenoVerse master NDA / non-circumvention.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="next">
+      <div class="wrap">
+        <div class="callout">
+          <h3>Next steps</h3>
+          <p>Three moves to put Preview tooling in Jamaica within 10 days of kickoff.</p>
+          <ol>
+            <li><b>NDA</b> — finalize via Blue Diamond Capital if not already complete.</li>
+            <li><b>Kickoff</b> — 45-minute sync with Dr. Steph, Parag, and Pascal to ingest the intake form and confirm hosting region.</li>
+            <li><b>Sprint 1A</b> — deploy the November Preview intake tool within 10 days of kickoff.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <strong style="color:var(--brand-deep)">120Vault™</strong> — for ZenoVerse Wellness Group, Inc.<br>
+      Prepared by Parag Goyal, SoftwareBrio Technologies — Bangalore · SB-ZV-2026-P1-FINAL · November 2026<br>
+      <span style="opacity:.8">120Vault™, 120BodySpa™, 120ClubVIP™, W-a-a-S/S™ are ZenoVerse trademarks.</span>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('[data-journey]').forEach(function (block) {
+      var buttons = block.querySelectorAll('.step-btn');
+      buttons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          buttons.forEach(function (b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          block.querySelectorAll('.journey-panel').forEach(function (p) { p.classList.remove('active'); });
+          var panel = document.getElementById(btn.getAttribute('data-step'));
+          if (panel) panel.classList.add('active');
+        });
+      });
+    });
+  </script>
+</body>
+</html>
